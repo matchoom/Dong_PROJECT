@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pid.sqlmap.mappers.Members_SQL">
+	<resultMap type="reply" id="replyResult">
+		<result property="replyNo" column="replyNo" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="wdate" column="wdate" />
+		<result property="boardNo" column="boardNo" />
+		<result property="memberId" column="memberId" />
+		<result property="memberNickname" column="memberNickname" />
+		<result property="targetId" column="targetId" />
+	</resultMap>
+	
+	
+	<insert id="sendMessage">
+		insert into reply values(null,#{title},#{content},now(),#{boardNo},#{memberId},#{memberNickname},#{targetId})
+	</insert>
+	
+	<select id="sendBox" resultMap="replyResult">
+		select * from reply
+	</select>
+	
+	<select id="sendView" resultMap="replyResult">
+		select * from reply where replyNo = #{replyNo}
+	</select>
+</mapper>

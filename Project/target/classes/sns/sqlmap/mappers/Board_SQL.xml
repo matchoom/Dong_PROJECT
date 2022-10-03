@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pid.sqlmap.mappers.Members_SQL">
+	<resultMap type="board" id="boardResult">
+		<result property="boardNo" column="boardNo" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="price" column="price" />
+		<result property="wdate" column="wdate" />
+		<result property="boardType" column="boardType" />
+		<result property="memberId" column="memberId" />
+		<result property="memberNickname" column="memberNickname" />
+		<result property="picturePath" column="picturePath" />
+	</resultMap>
+	
+	
+	<select id="boardList" resultMap="boardResult">
+		select * from board order by boardNo desc LIMIT #{startIndex}, #{endIndex}
+	</select>
+	
+	<insert id="insertBoard">
+		insert into board values(null,#{title},#{content},#{price},now(),#{boardType},#{memberId},#{memberNickname},#{picturePath})
+	</insert>
+	
+	<select id="selectView" resultMap="boardResult">
+      select * FROM board WHERE boardNo=#{boardNo} 
+   </select>
+   
+   <delete id="deleteBoard">
+      DELETE from board WHERE boardNo=#{boardNo}
+   </delete>
+   
+   <update id="updateBoard">
+      UPDATE board SET title=#{title},content=#{content},price=#{price},picturePath = #{picturePath} WHERE boardNo=#{boardNo}
+   </update>
+   
+   <select id="totalBoard" resultType="int">
+		select count(*) from board
+	</select>
+	
+	<select id="selectViewInt" resultMap="boardResult">
+      select * FROM board WHERE boardNo=#{boardNo} 
+   </select>
+</mapper>
